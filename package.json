@@ -9,8 +9,7 @@
 
 		"runner": "node index.js --config ./tests/app-js/config.js --env test-build",
 		"runner-dev": "node index.js --config ./tests/app-js/config.js --mode development",
-		"runner-build": "node index.js --config ./tests/app-js/config.js --mode production",
-
+		"runner-build": "node index.js --config ./tests/app-js/config.js --mode production"
 	},
   "repository": {
     "type": "git",
