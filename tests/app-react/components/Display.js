@@ -28,8 +28,7 @@ export default class Display extends React.Component {
 	render () {
 		return (
 			<div>
-				<h3>Display 777</h3>
-				<icon-trash />
+				<h3>Display 111</h3>
 				<LoadableOne/>
 				<LoadableTwo/>
 			</div>

@@ -1,3 +1,4 @@
+console.log('webpack-runner init');
 const webpack = require("webpack");
 const WebpackDevServer = require("webpack-dev-server");
 const serve = require('webpack-serve');
@@ -5,11 +6,13 @@ const path = require('path');
 const fs = require('fs');
 const html = require('./config/html.plugin');
 const assets = require('./config/assets.plugin');
+console.log('loading 1...');
 //
 const args = require('minimist')(process.argv.slice(2));
 const localOptions = require(args.config);
 const isDev = args.mode === 'development';
 localOptions.projectRoot = process.cwd();
+console.log('loading 2...');
 
 
 function run (options, callback) {
@@ -92,9 +95,12 @@ BUILD TWO
 *********
 `;
 
+console.log('run...');
 if (isDev) {
+	console.log('dev...');
 	run(localOptions);
 } else if (localOptions.ieOnly || !localOptions.ie) {
+	console.log('ie...');
 	run(localOptions, () => {
 		let content = html.read(localOptions);
 		content = assets.toFile(content, [], localOptions);
@@ -102,6 +108,7 @@ if (isDev) {
 		assets.flush();
 	});
 } else {
+	console.log('build...');
 	// modules/nomodules build step
 	// first run modern browser build
 	console.log(build1);

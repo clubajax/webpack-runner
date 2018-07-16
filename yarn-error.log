@@ -1,5 +1,5 @@
 Arguments: 
-  /Users/mwilcox/.nvm/versions/node/v10.4.0/bin/node /usr/local/Cellar/yarn/1.7.0/libexec/bin/yarn.js runner-dev
+  /Users/mwilcox/.nvm/versions/node/v10.4.0/bin/node /usr/local/Cellar/yarn/1.7.0/libexec/bin/yarn.js add @babel/plugin-dynamic-import-node
 
 PATH: 
   /Users/mwilcox/.nvm/versions/node/v10.4.0/bin:/Users/mwilcox/.rvm/gems/ruby-2.2.1/bin:/Users/mwilcox/.rvm/gems/ruby-2.2.1@global/bin:/Users/mwilcox/.rvm/rubies/ruby-2.2.1/bin:/Users/mwilcox/.rbenv/shims:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Users/mwilcox/.rvm/bin
@@ -14,43 +14,46 @@ Platform:
   darwin x64
 
 Trace: 
-  SyntaxError: /Users/mwilcox/sites/github/webpack-runner/package.json: Unexpected token } in JSON at position 630
-      at JSON.parse (<anonymous>)
-      at /usr/local/Cellar/yarn/1.7.0/libexec/lib/cli.js:1130:59
-      at Generator.next (<anonymous>)
-      at step (/usr/local/Cellar/yarn/1.7.0/libexec/lib/cli.js:98:30)
-      at /usr/local/Cellar/yarn/1.7.0/libexec/lib/cli.js:109:13
+  Error: https://registry.yarnpkg.com/@babel%2fplugin-dynamic-import-node: Not found
+      at Request.params.callback [as _callback] (/usr/local/Cellar/yarn/1.7.0/libexec/lib/cli.js:65656:18)
+      at Request.self.callback (/usr/local/Cellar/yarn/1.7.0/libexec/lib/cli.js:134675:22)
+      at Request.emit (events.js:182:13)
+      at Request.<anonymous> (/usr/local/Cellar/yarn/1.7.0/libexec/lib/cli.js:135658:10)
+      at Request.emit (events.js:182:13)
+      at IncomingMessage.<anonymous> (/usr/local/Cellar/yarn/1.7.0/libexec/lib/cli.js:135578:12)
+      at Object.onceWrapper (events.js:273:13)
+      at IncomingMessage.emit (events.js:187:15)
+      at endReadableNT (_stream_readable.js:1081:12)
+      at process._tickCallback (internal/process/next_tick.js:63:19)
 
 npm manifest: 
   {
-    "name": "webpack-runner",
-    "version": "0.5.0",
-    "description": "Quickly stand up a React or Vanilla JS app with customizable webpack presets",
-    "main": "index.js",
+  	"name": "webpack-runner",
+  	"version": "0.5.0",
+  	"description": "Quickly stand up a React or Vanilla JS app with customizable webpack presets",
+  	"main": "index.js",
   	"scripts": {
-  		"test-app-react": "webpack-dev-server --config ./tests/app-react/config.js --mode development",
+  		"test-app-react": "node index.js --config ./tests/app-react/config.js --mode development",
   		"test-app-react-build": "webpack --config ./tests/app-react/config.js --env test-build",
-  
   		"runner": "node index.js --config ./tests/app-js/config.js --env test-build",
   		"runner-dev": "node index.js --config ./tests/app-js/config.js --mode development",
-  		"runner-build": "node index.js --config ./tests/app-js/config.js --mode production",
-  
+  		"runner-build": "node index.js --config ./tests/app-js/config.js --mode production"
   	},
-    "repository": {
-      "type": "git",
-      "url": "git+https://github.com/clubajax/webpack-runner.git"
-    },
-    "keywords": [
-      "webpack",
-      "javascript",
-      "react"
-    ],
-    "author": "clubajax",
-    "license": "MIT",
-    "bugs": {
-      "url": "https://github.com/clubajax/webpack-runner/issues"
-    },
-    "homepage": "https://github.com/clubajax/webpack-runner#readme",
+  	"repository": {
+  		"type": "git",
+  		"url": "git+https://github.com/clubajax/webpack-runner.git"
+  	},
+  	"keywords": [
+  		"webpack",
+  		"javascript",
+  		"react"
+  	],
+  	"author": "clubajax",
+  	"license": "MIT",
+  	"bugs": {
+  		"url": "https://github.com/clubajax/webpack-runner/issues"
+  	},
+  	"homepage": "https://github.com/clubajax/webpack-runner#readme",
   	"devDependencies": {
   		"react": "^16.4.1",
   		"react-dom": "^16.4.1",
@@ -60,9 +63,9 @@ npm manifest:
   		"@babel/cli": "^7.0.0-beta.40",
   		"@babel/core": "^7.0.0-beta.40",
   		"@babel/plugin-syntax-dynamic-import": "^7.0.0-beta.40",
+  		"@babel/plugin-transform-classes": "7.0.0-beta.35",
   		"@babel/preset-env": "^7.0.0-beta.40",
   		"@babel/preset-react": "^7.0.0-beta.40",
-  		"@babel/plugin-transform-classes": "7.0.0-beta.35",
   		"@clubajax/custom-elements-polyfill": "^0.9.3",
   		"@clubajax/react-web-component": "^0.9.7",
   		"babel-loader": "8.0.0-beta.0",
