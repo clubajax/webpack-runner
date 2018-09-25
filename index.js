@@ -7,15 +7,8 @@ const fs = require('fs');
 const html = require('./config/html.plugin');
 const assets = require('./config/assets.plugin');
 console.log('loading 1...');
-//
-const args = require('minimist')(process.argv.slice(2));
-const localOptions = require(args.config);
-const isDev = args.mode === 'development';
-localOptions.projectRoot = process.cwd();
-console.log('loading 2...');
 
-
-function run (options, callback) {
+function run (options, args, callback) {
 
 	// const filepath = path.resolve(localOptions.root, localOptions.output, localOptions.html.filename);
 	// console.log('filepath', filepath);
@@ -24,7 +17,7 @@ function run (options, callback) {
 	const webpackConfig = require('./config/webpack.config');
 	const serverConfig = require('./config/server.config');
 	const serveConfig = require('./config/serve.config');
-	const webpackOptions = webpackConfig(options);
+	const webpackOptions = webpackConfig(options, args);
 
 	console.log('webpackOptions', webpackOptions);
 
@@ -95,39 +88,48 @@ BUILD TWO
 *********
 `;
 
-console.log('run...');
-if (isDev) {
-	console.log('dev...');
-	run(localOptions);
-} else if (localOptions.ieOnly || !localOptions.ie) {
-	console.log('ie...');
-	run(localOptions, () => {
-		let content = html.read(localOptions);
-		content = assets.toFile(content, [], localOptions);
-		html.write(content, localOptions);
-		assets.flush();
-	});
-} else {
-	console.log('build...');
-	// modules/nomodules build step
-	// first run modern browser build
-	console.log(build1);
-	localOptions.ie = false;
-	run(localOptions, () => {
+module.exports = (args) => {
 
-		let content = html.read(localOptions);
-		const moduleScripts = assets.fromFile(content);
-		assets.cache(localOptions);
+	const isDev = args.mode === 'development';
 
-		// now run legacy browser build
-		console.log(build2);
-		localOptions.ie = true;
-		run(localOptions, () => {
+	const localOptions = require(path.resolve(process.cwd(), args.config));
+	localOptions.projectRoot = process.cwd();
+	
+	console.log('loading 2...');
+
+	console.log('run...');
+	if (isDev) {
+		console.log('dev...');
+		run(localOptions, args);
+	} else if (localOptions.ieOnly || !localOptions.ie) {
+		console.log('ie...');
+		run(localOptions, args, () => {
 			let content = html.read(localOptions);
-			content = assets.toFile(content, moduleScripts, localOptions);
+			content = assets.toFile(content, [], localOptions);
 			html.write(content, localOptions);
 			assets.flush();
 		});
-	});
-}
+	} else {
+		console.log('build...');
+		// modules/nomodules build step
+		// first run modern browser build
+		console.log(build1);
+		localOptions.ie = false;
+		run(localOptions, args, () => {
 
+			let content = html.read(localOptions);
+			const moduleScripts = assets.fromFile(content);
+			assets.cache(localOptions);
+
+			// now run legacy browser build
+			console.log(build2);
+			localOptions.ie = true;
+			run(localOptions, args, () => {
+				let content = html.read(localOptions);
+				content = assets.toFile(content, moduleScripts, localOptions);
+				html.write(content, localOptions);
+				assets.flush();
+			});
+		});
+	}
+};

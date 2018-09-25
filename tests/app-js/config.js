@@ -1,3 +1,5 @@
+console.log('loading app-js/config');
+
 const path = require('path');
 const root = path.resolve(`${__dirname}/../`);
 console.log('ROOT', root);

@@ -5,10 +5,15 @@
 	"main": "index.js",
 	"scripts": {
 		"test-app-react": "node index.js --config ./tests/app-react/config.js --mode development",
-		"test-app-react-build": "webpack --config ./tests/app-react/config.js --env test-build",
+		"test-app-react-build": "node index.js --config ./tests/app-react/config.js --env test-build",
 		"runner": "node index.js --config ./tests/app-js/config.js --env test-build",
 		"runner-dev": "node index.js --config ./tests/app-js/config.js --mode development",
-		"runner-build": "node index.js --config ./tests/app-js/config.js --mode production"
+		"runner-build": "node index.js --config ./tests/app-js/config.js --mode production",
+		"test-react": "--config ./tests/app-react/config.js --mode development",
+		"test-react-build": "--config ./tests/app-react/config.js --env test-build"
+	},
+	"bin": {
+		"run": "./cli.js"
 	},
 	"repository": {
 		"type": "git",

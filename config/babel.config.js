@@ -53,6 +53,7 @@ module.exports = (options) => {
 					'lodash',
 					'date-fns',
 					'react-hot-loader/babel',
+					'@babel/plugin-transform-classes', // <---------------- will this fix the IE bug?
 					'@babel/plugin-syntax-dynamic-import',
 					'@babel/plugin-proposal-object-rest-spread',
 					'dynamic-import-node'

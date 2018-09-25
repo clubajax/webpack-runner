@@ -2,20 +2,18 @@ const path = require('path');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
 const defaults = require('./defaults');
-const argv = require('minimist')(process.argv.slice(2));
 
-
-module.exports = (opts) => {
+module.exports = (opts, args) => {
 
 	const options = defaults(opts);
 
 	console.log('options', options);
 
 	const ENV = process.env.API;
-	const isProd = argv.mode !== 'development';
+	const isProd = args.mode !== 'development';
 
 	options.isProd = isProd;
-	global.buildServer = argv.env === 'test-build' || options.testModuleBuild;
+	global.buildServer = args.env === 'test-build' || options.testModuleBuild;
 	process.env.API = ENV || !isProd ? 'dev' : undefined;
 
 	options.appName = options.appName || 'app';
@@ -118,5 +116,6 @@ module.exports = (opts) => {
 		const smp = new SpeedMeasurePlugin();
 		return smp.wrap(config);
 	}
+	console.log(config);
 	return config;
 };

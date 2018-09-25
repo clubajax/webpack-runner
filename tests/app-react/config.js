@@ -1,5 +1,7 @@
+console.log('loading app-react/config');
 const path = require('path');
 const root = path.resolve(`${__dirname}/../`);
+
 console.log('ROOT', root);
 
 const config = {
